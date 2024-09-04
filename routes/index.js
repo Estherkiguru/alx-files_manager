@@ -50,4 +50,19 @@ router.get('/files', (req, res) => {
   FilesController.getIndex(req, res);
 });
 
+// Route for setting document based on ID as true
+router.put('/files/:id/publish', (req, res) => {
+  FilesController.putPublish(req, res);
+});
+
+// Route for setting document based o ID as true
+router.put('/files/:id/publish', (req, res) => {
+  FilesController.putUnpublish(req, res);
+});
+
+// Endpoint for file routes
+router.get('/files/:id/data', (req, res) => {
+  FilesController.getFile(req, res);
+});
+
 export default router;
