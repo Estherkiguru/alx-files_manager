@@ -40,4 +40,14 @@ router.post('/files', (req, res) => {
   FilesController.postUpload(req, res);
 });
 
+// Route for retrieving a file
+router.get('/files/:id', (req, res) => {
+  FilesController.getShow(req, res);
+});
+
+// Route for all users
+router.get('/files', (req, res) => {
+  FilesController.getIndex(req, res);
+});
+
 export default router;
