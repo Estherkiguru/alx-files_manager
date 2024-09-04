@@ -8,10 +8,10 @@ class UsersController {
 
     // Check for missing email or password
     if (!email) {
-      res.status(400).json({ error: 'Missing email' });
+      return res.status(400).json({ error: 'Missing email' });
     }
     if (!password) {
-      res.status(400).json({ error: 'Missing password' });
+      return res.status(400).json({ error: 'Missing password' });
     }
     const hashedPassword = sha1(password);
 
@@ -20,17 +20,16 @@ class UsersController {
       const user1 = await collection.findOne({ email });
 
       if (user1) {
-        res.status(400).json({ error: 'Already exist' });
-      } else {
-        collection.insertOne({ email, password: hashedPassword });
-        const newUser = await collection.findOne(
-          { email }, { projection: { email: 1 } },
-        );
-        res.status(201).json({ id: newUser._id, email: newUser.email });
+        return res.status(400).json({ error: 'Already exist' });
       }
+      collection.insertOne({ email, password: hashedPassword });
+      const newUser = await collection.findOne(
+        { email }, { projection: { email: 1 } },
+      );
+      return res.status(201).json({ id: newUser._id, email: newUser.email });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error: 'Server error' });
+      return res.status(500).json({ error: 'Server error' });
     }
   }
 
@@ -53,7 +52,7 @@ class UsersController {
     }
 
     const { email, _id: id } = user;
-    res.status(200).send({ id, email });
+    return res.status(200).send({ id, email });
   }
 }
 

@@ -23,7 +23,7 @@ class AuthController {
     const duration = (60 * 60 * 24);
     await redisClient.set(key, user._id.toString(), duration);
 
-    res.status(200).send({ token });
+    return res.status(200).send({ token });
   }
 
   static async getDisconnect(req, res) {
@@ -37,7 +37,7 @@ class AuthController {
       return res.status(401).send({ error: 'Unauthorized' });
     }
 
-    res.status(204).send();
+    return res.status(204).send();
   }
 }
 
